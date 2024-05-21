@@ -14,11 +14,54 @@
 
 
 
+struct State {
+	unsigned int iterations;
+	bool x_turn;
+};
+
+
+
+void 
+button_cb(Fl_Widget *w, void *data) {
+
+	Fl_Button *btn = static_cast<Fl_Button*>(w);
+	
+	State *state = static_cast<State*>(data);
+	
+	if (state->iterations>=9) return;
+
+	const char *label = btn->label();
+	if (label[0]!='\0') return;
+
+	if (state->x_turn) {
+		
+		btn->label("X");
+	} else {
+		btn->label("O");
+	}
+	state->x_turn = !state->x_turn;
+	btn->redraw();
+}
+
+
+
 class CustomWindow :public Fl_Window {
 private:
-	std::vector<std::pair<int,int>> rectangles;
+	//std::vector<std::pair<int,int>> rectangles;
+	std::vector<Fl_Button*> buttons;
+	State state;
+
 public:
-	CustomWindow(int W, int H, const char *L = 0) : Fl_Window(W,H,L) {}
+	CustomWindow(int W, int H, const char *L = 0) : Fl_Window(W,H,L) {
+		for (unsigned i=0,j=0; i<9; i++) {	
+			if (i!=0&&i%3==0) j++;
+			buttons.push_back(new Fl_Button((i%3)*20,j*20,20,20,""));
+			buttons.back()->callback(button_cb,&state);
+		}
+
+		state.iterations=0;
+		state.x_turn=true;
+	}
 
 
 
@@ -26,10 +69,8 @@ public:
 		switch (e) {
 			case FL_PUSH:
 				if (Fl::event_button() == FL_LEFT_MOUSE) {
-					rectangles.push_back(std::make_pair(Fl::event_x(),Fl::event_y()));
-					redraw();
+				
 				}
-				return 1;
 			default:
 				return Fl_Window::handle(e);	
 		}
@@ -40,10 +81,12 @@ public:
 	void draw() override {
 		Fl_Window::draw();
 
+		/*
 		fl_color(FL_RED);
 		for (const auto& rect : rectangles) {
 			fl_rectf(rect.first - 5, rect.second -5,10,10);
 		}
+		*/
 	}
 };
 
