@@ -30,15 +30,17 @@ AudioManager::~AudioManager() {
 
 
 
-void AudioManager::play(double freq, double duration) {
+void AudioManager::play(paTestData* data) {
+	
+
 	err = Pa_OpenDefaultStream(	&stream,
 								0,
-								1,
+								2,
 								paFloat32,
 								SAMPLE_RATE,
 								256,
 								paCallback,
-								&freq	);
+								data	);
 	
 	if (checkError(err)) return;
 
@@ -47,8 +49,8 @@ void AudioManager::play(double freq, double duration) {
 	err = Pa_StartStream(stream);
 	if (checkError(err)) return;
 
-	
-	Pa_Sleep(static_cast<long>(duration));
+
+	Pa_Sleep(5000);
 
 
 	err = Pa_StopStream(stream);
@@ -72,18 +74,19 @@ int AudioManager::paCallback(	const void *inputBuffer, void *outputBuffer,
     
 
 	float* out = static_cast<float*>(outputBuffer);
-    double frequency = *static_cast<double*>(userData);
-    static double phase = 0.0;
-
+    paTestData *data = static_cast<paTestData*>(userData);
+	unsigned int i;
+	(void) inputBuffer;
     
-	for (unsigned long i = 0; i < framesPerBuffer; i++) {
-        *out++ = static_cast<float>(0.5 * sin(phase * 2.0 * M_PI));
-        phase += frequency / SAMPLE_RATE;
-        if (phase >= 1.0) phase -= 1.0;
+	for (i = 0; i < framesPerBuffer; i++) {
+        *out++ = data->sine[data->phase];
+		*out++ = data->sine[data->phase];
+		data->phase +=1;
+		if (data->phase >= data->current_size) data->phase-=data->current_size; 
     }
 
     
-	return paContinue;	
+	return 0;	
 }
 
 

@@ -35,9 +35,20 @@ void MainWindow::draw() {
 
 void MainWindow::playButtonCallback(	Fl_Widget *widget,
 										void *data	) {
+	
+	paTestData testData;
+
+	testData.current_size = static_cast<int>(SAMPLE_RATE/440.0);
+
+	for (unsigned i=0; i<testData.current_size; ++i) {
+		testData.sine[i] = 0.60*sin(2.0*M_PI*440.0*(double)i/SAMPLE_RATE); 
+	}
+
+	testData.phase=0;
+
 
 	MainWindow *window = static_cast<MainWindow*>(data);
-	window->audioManager->play(440.0,1.0);
+	window->audioManager->play(&testData);
 }
 
 

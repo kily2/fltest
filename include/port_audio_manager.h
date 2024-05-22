@@ -8,6 +8,17 @@
 #include <cmath>
 
 #define SAMPLE_RATE (44100.0)
+#define TABLE_SIZE (44100)
+
+
+
+typedef struct {
+
+	float sine[TABLE_SIZE];
+	int phase;
+	int current_size;
+
+} paTestData;
 
 
 
@@ -18,7 +29,7 @@ public:
 
 
 
-	void play(double freq, double dur);
+	void play(paTestData* data);
 
 
 
