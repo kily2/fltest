@@ -11,14 +11,14 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
 
-#include "windows/main.h"
+#include "include/main.h"
 
 
 
 int
 main(int argc, char **argv) {
 
-	MainWindow *window = new MainWindow(400,300,"Test 123");
+	MainWindow *window = new MainWindow(400,300,"Test 12321");
 
 
 

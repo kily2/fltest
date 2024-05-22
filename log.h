@@ -1,7 +1,9 @@
 
 #ifndef LOG_H
-#define LOH_H
+#define LOG_H
 
+
+#include <cstdio>
 
 
 #define LOGGING 1

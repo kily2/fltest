@@ -18,8 +18,9 @@ file_name = ARGV[0] if !ARGV.empty?
 
 list = [
 	"n",
-	"widgets/jbutton",
-	"windows/main"
+	"src/jbutton",
+	"src/main",
+	"src/port_audio_manager"
 ]
 
 

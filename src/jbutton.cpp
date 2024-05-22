@@ -1,5 +1,5 @@
 
-#include "jbutton.h"
+#include "../include/jbutton.h"
 #include <FL/fl_draw.H>
 
 
