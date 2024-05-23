@@ -43,7 +43,7 @@ end
 
 def link(list)
 	flat_list = list.map { |file| "objects/"+extract_name(file)+".o" }.join(" ")
-	system("g++ #{flat_list} -o t -lportaudio -lm -lfltk")
+	system("g++ #{flat_list} -o t -lportaudio -lm -lfltk -lsndfile")
 	success("succeed linked","failed linked")
 end
 
