@@ -18,9 +18,8 @@ file_name = ARGV[0] if !ARGV.empty?
 
 list = [
 	"n",
-	"src/jbutton",
-	"src/main",
-	"src/port_audio_manager"
+	"src/UI/UserInterface",
+	"src/Audio/AudioEngine",
 ]
 
 

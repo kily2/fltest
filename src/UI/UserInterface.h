@@ -4,7 +4,7 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Button.H>
-#include "port_audio_manager.h"
+#include "../Audio/AudioEngine.h"
 
 
 
@@ -23,7 +23,8 @@ private:
 	Fl_Button *playButton;
 	AudioManager *audioManager;
 
-
+	
+	paTestData testData;
 	static void playButtonCallback(Fl_Widget* widget, void *data);
 };
 

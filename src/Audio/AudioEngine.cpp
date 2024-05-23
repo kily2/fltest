@@ -1,7 +1,7 @@
 
 
 #include "portaudio.h"
-#include "../include/port_audio_manager.h"
+#include "AudioEngine.h"
 #include "../log.h"
 
 
@@ -50,7 +50,7 @@ void AudioManager::play(paTestData* data) {
 	if (checkError(err)) return;
 
 
-	Pa_Sleep(5000);
+	Pa_Sleep(2000);
 
 
 	err = Pa_StopStream(stream);
