@@ -21,6 +21,7 @@ list = [
 	"src/UI/UserInterface",
 	"src/Audio/AudioFileHandler",
 	"src/Audio/AudioEngine",
+	"src/UI/FileManagerWidget",
 ]
 
 

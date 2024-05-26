@@ -28,7 +28,7 @@ bool AudioFileHandler::loadFile(const std::string &filename) {
 
 
 	sndfile = sf_open(filename.c_str(), SFM_READ, &sfinfo);
-	if (sndfile) {
+	if (!sndfile) {
 		LOG("sndfile: Failed to open file.");
 		return false;
 	}
@@ -44,8 +44,6 @@ bool AudioFileHandler::loadFile(const std::string &filename) {
 	sampleRate = sfinfo.samplerate;
 	currentFrame = 0;
 
-	LOGF("channels: ",(double)channels);
-	LOGF("sampleRate: ",(double)sampleRate);
 
 	return true;
 }
@@ -90,8 +88,8 @@ int AudioFileHandler::getSampleRate() const {
 
 
 
-void AudioFileHandler::setCurrentFrame(sf_count_t frame) {
-	frames = frame;
+void AudioFileHandler::setCurrentFrame(sf_count_t new_frame) {
+	currentFrame = new_frame;
 }
 
 

@@ -52,7 +52,7 @@ void AudioManager::play() {
 								audio_file_handler.getChannels(),
 								paFloat32,
 								audio_file_handler.getSampleRate(),
-								512,
+								paFramesPerBufferUnspecified,
 								paCallback,
 								&audio_file_handler	);
 	
