@@ -12,6 +12,14 @@ AudioManager::AudioManager() {
 		LOG("PortAudio initialization failed.");
 		return;
 	}
+
+
+
+	std::string filename = "../../test/test_kick1.wav";
+
+	if (!audio_file_handler.loadFile(filename)) {
+		return;
+	}
 }
 
 
@@ -30,17 +38,17 @@ AudioManager::~AudioManager() {
 
 
 
-void AudioManager::play(paTestData* data) {
+void AudioManager::play() {
 	
 
 	err = Pa_OpenDefaultStream(	&stream,
 								0,
-								2,
+								audio_file_handler.getChannels(),
 								paFloat32,
-								SAMPLE_RATE,
-								256,
+								audio_file_handler.getSampleRate(),
+								paFramesPerBufferUnspecified,
 								paCallback,
-								data	);
+								&audio_file_handler	);
 	
 	if (checkError(err)) return;
 
@@ -72,21 +80,29 @@ int AudioManager::paCallback(	const void *inputBuffer, void *outputBuffer,
 								PaStreamCallbackFlags statusFlags,
 								void *userData	) {
     
+	AudioFileHandler *handler = static_cast<AudioFileHandler*>(userData);
+	float *out = static_cast<float*>(outputBuffer);
+	unsigned long i;
 
-	float* out = static_cast<float*>(outputBuffer);
-    paTestData *data = static_cast<paTestData*>(userData);
-	unsigned int i;
-	(void) inputBuffer;
-    
-	for (i = 0; i < framesPerBuffer; i++) {
-        *out++ = data->sine[data->phase];
-		*out++ = data->sine[data->phase];
-		data->phase +=1;
-		if (data->phase >= data->current_size) data->phase-=data->current_size; 
-    }
+	sf_count_t framesLeft = handler->getFrames() - handler->getCurrentFrame();
+	unsigned long framesToCopy = (framesLeft<framesPerBuffer)?framesLeft:framesPerBuffer;
 
+	const float *input = handler->getBuffer().data() + handler->getCurrentFrame()*handler->getChannels();
+	for (i=0; i<framesToCopy*handler->getChannels(); i++) {
+		*out++ = *input++;
+	}
+	
     
-	return 0;	
+	handler->setCurrentFrame(handler->getCurrentFrame() + framesToCopy);
+
+	if (framesToCopy < framesPerBuffer) {
+		for(; i< framesPerBuffer*handler->getChannels(); i++) {
+			*out++ = 0.0f;
+		}
+		return paComplete;
+	}
+
+	return paContinue;	
 }
 
 

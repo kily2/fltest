@@ -6,19 +6,11 @@
 #include "portaudio.h"
 #include <iostream>
 #include <cmath>
+#include "AudioFileHandler.h"
+
 
 #define SAMPLE_RATE (44100.0)
 #define TABLE_SIZE (44100)
-
-
-
-typedef struct {
-
-	float sine[TABLE_SIZE];
-	int phase;
-	int current_size;
-
-} paTestData;
 
 
 
@@ -29,7 +21,7 @@ public:
 
 
 
-	void play(paTestData* data);
+	void play();
 
 
 
@@ -37,8 +29,9 @@ private:
 	PaStream *stream;
 	PaError err;
 
-
+	AudioFileHandler audio_file_handler;	
 	
+		
 	static int paCallback(	const void *inputBuffer, void *outputBuffer,
 							unsigned long framePerBuffer,
 							const PaStreamCallbackTimeInfo *timeInfo,

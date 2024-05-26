@@ -19,6 +19,7 @@ file_name = ARGV[0] if !ARGV.empty?
 list = [
 	"n",
 	"src/UI/UserInterface",
+	"src/Audio/AudioFileHandler",
 	"src/Audio/AudioEngine",
 ]
 

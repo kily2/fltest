@@ -24,7 +24,6 @@ private:
 	AudioManager *audioManager;
 
 	
-	paTestData testData;
 	static void playButtonCallback(Fl_Widget* widget, void *data);
 };
 
