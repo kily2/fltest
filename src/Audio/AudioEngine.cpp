@@ -15,7 +15,7 @@ AudioManager::AudioManager() {
 
 
 
-	std::string filename = "../../test/test_kick1.wav";
+	std::string filename = "../../tests/test_kick1.wav";
 
 	if (!audio_file_handler.loadFile(filename)) {
 		return;
