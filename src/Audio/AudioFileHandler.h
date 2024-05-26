@@ -2,6 +2,7 @@
 #define AUDIOFILEHANDLER_H
 
 #include <string>
+#include <cstring>
 #include <vector>
 #include "../log.h"
 #include <sndfile.h>
@@ -27,13 +28,15 @@ AudioFileHandler();
 	int getSampleRate() const;
 
 
+
 	void setCurrentFrame(sf_count_t frame);
 
 private:
 	SNDFILE *sndfile;
 	SF_INFO sfinfo;
 
-	
+
+
 	std::vector<float> buffer;
 	sf_count_t frames;
 	sf_count_t currentFrame;

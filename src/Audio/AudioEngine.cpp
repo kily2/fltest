@@ -15,11 +15,17 @@ AudioManager::AudioManager() {
 
 
 
-	std::string filename = "../../tests/test_kick1.wav";
+	std::string filename = "tests/test_kick1.wav";
 
 	if (!audio_file_handler.loadFile(filename)) {
 		return;
 	}
+
+
+	std::cout << "channels: " << audio_file_handler.getChannels() << std::endl;	
+	std::cout << "samplerate: " << audio_file_handler.getSampleRate() << std::endl;
+
+
 }
 
 
@@ -46,7 +52,7 @@ void AudioManager::play() {
 								audio_file_handler.getChannels(),
 								paFloat32,
 								audio_file_handler.getSampleRate(),
-								paFramesPerBufferUnspecified,
+								512,
 								paCallback,
 								&audio_file_handler	);
 	
@@ -84,16 +90,23 @@ int AudioManager::paCallback(	const void *inputBuffer, void *outputBuffer,
 	float *out = static_cast<float*>(outputBuffer);
 	unsigned long i;
 
+
+
 	sf_count_t framesLeft = handler->getFrames() - handler->getCurrentFrame();
 	unsigned long framesToCopy = (framesLeft<framesPerBuffer)?framesLeft:framesPerBuffer;
+
+
 
 	const float *input = handler->getBuffer().data() + handler->getCurrentFrame()*handler->getChannels();
 	for (i=0; i<framesToCopy*handler->getChannels(); i++) {
 		*out++ = *input++;
 	}
 	
-    
+
+
 	handler->setCurrentFrame(handler->getCurrentFrame() + framesToCopy);
+
+
 
 	if (framesToCopy < framesPerBuffer) {
 		for(; i< framesPerBuffer*handler->getChannels(); i++) {
@@ -101,6 +114,8 @@ int AudioManager::paCallback(	const void *inputBuffer, void *outputBuffer,
 		}
 		return paComplete;
 	}
+
+
 
 	return paContinue;	
 }

@@ -10,7 +10,8 @@ frames(0),
 currentFrame(0),
 channels(0),
 sampleRate(0) {
-	//...
+	
+	//std::memset(&sfinfo, 0, sizeof(sfinfo));
 }
 
 
@@ -42,6 +43,9 @@ bool AudioFileHandler::loadFile(const std::string &filename) {
 	channels = sfinfo.channels;
 	sampleRate = sfinfo.samplerate;
 	currentFrame = 0;
+
+	LOGF("channels: ",(double)channels);
+	LOGF("sampleRate: ",(double)sampleRate);
 
 	return true;
 }
