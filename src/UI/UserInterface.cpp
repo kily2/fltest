@@ -7,9 +7,7 @@ MainWindow::MainWindow(int W, int H, const char *L)
 : Fl_Window(W,H,L), 
 audioManager(new AudioManager())
 {
-	//fileManager = new FileManagerWidget(10,10,100,100);
-	//fileManager->box(FL_DOWN_BOX);
-	//fileManager->color(FL_BLACK);
+	fileManager = new FileManagerWidget(10,10,100,100);
 
 	end();	
 }
@@ -17,7 +15,7 @@ audioManager(new AudioManager())
 
 MainWindow::~MainWindow() {
 	delete audioManager;
-	//delete fileManager;
+	delete fileManager;
 }
 
 
