@@ -6,16 +6,19 @@
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Button.H>
-#include <FL/Fl_File_Chooser.H>
 #include <FL/Fl_Scroll.H>
-#include <FL/Fl_Browser.H>
 #include "../log.h"
+#include <filesystem>
+#include <FL/Fl_Shared_Image.H>
+#include <FL/fl_draw.H>
+
+
 
 
 
 class FileManagerWidget : public Fl_Group {
 public:
-FileManagerWidget(Fl_Window *w);
+FileManagerWidget(int x, int y, int w, int h, const char* l = 0);
 ~FileManagerWidget();
 
 
@@ -26,10 +29,8 @@ void draw() override;
 
 
 private:
-Fl_Window *window;
 Fl_Scroll *scroll;
-Fl_Browser *browser;
-
+Fl_Shared_Image *background;
 
 
 };

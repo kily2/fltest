@@ -7,7 +7,7 @@
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Button.H>
 #include "../Audio/AudioEngine.h"
-
+#include "FileManagerWidget.h"
 
 
 class MainWindow : public Fl_Window {
@@ -22,8 +22,10 @@ public:
 
 
 private:
+	FileManagerWidget *fileManager;
 	Fl_Button *playButton;
 	AudioManager *audioManager;
+
 
 	
 	static void playButtonCallback(Fl_Widget* widget, void *data);

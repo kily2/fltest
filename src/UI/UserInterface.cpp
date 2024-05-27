@@ -4,17 +4,20 @@
 
 
 MainWindow::MainWindow(int W, int H, const char *L)
-: Fl_Window(W,H,L), audioManager(new AudioManager()) {
+: Fl_Window(W,H,L), 
+audioManager(new AudioManager())
+{
+	//fileManager = new FileManagerWidget(10,10,100,100);
+	//fileManager->box(FL_DOWN_BOX);
+	//fileManager->color(FL_BLACK);
 
-
-	playButton = new Fl_Button(50,50,100,30,"Play Tone");
-	playButton->callback(playButtonCallback,this);
 	end();	
 }
 
 
 MainWindow::~MainWindow() {
 	delete audioManager;
+	//delete fileManager;
 }
 
 

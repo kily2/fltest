@@ -13,14 +13,18 @@
 
 #include "src/UI/UserInterface.h"
 
+#include "src/UI/FileManagerWidget.h"
+#include "src/UI/testButton.h"
+
 
 
 int
 main(int argc, char **argv) {
 
 	MainWindow *window = new MainWindow(400,300,"Test 12321");
-
-
+	FileManagerWidget *filemanager = new FileManagerWidget(10,10,100,100);
+	//TestButton *testbutton = new TestButton(10,10,100,100,"hello");	
+	window->add(filemanager);
 
 	window->end();
 	window->show(argc,argv);
