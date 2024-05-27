@@ -5,8 +5,9 @@
 
 
 
-FileManagerWidget::FileManagerWidget()
-: Fl_Group(0, 0, 0, 0){
+FileManagerWidget::FileManagerWidget(Fl_Window *w)
+: Fl_Group(0, 0, 0, 0),
+window(w) {
 	//...
 }
 
